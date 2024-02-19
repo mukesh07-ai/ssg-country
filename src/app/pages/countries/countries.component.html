@@ -1,0 +1,13 @@
+<div class="px-4 lg:px-20">
+  <div class="flex w-full flex-row items-center justify-between">
+    <span></span>
+    <app-filter-by-region />
+  </div>
+  @if (countries$ | async; as countries) {
+    <div class="my-8 grid w-full grid-cols-auto justify-center gap-4">
+      @for (country of countries; track $index) {
+        <app-country-card [country]="country" />
+      }
+    </div>
+  }
+</div>

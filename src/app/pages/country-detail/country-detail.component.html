@@ -1,0 +1,123 @@
+@if (country$ | async; as country) {
+  <div class="flex flex-col items-center px-4 pb-4 lg:px-20 lg:pt-4">
+    <aside class="flex flex-col gap-4">
+      <a routerLink="/" class="btn btn-neutral w-40 rounded-xl">
+        Go Back to Home
+      </a>
+
+      <div
+        class="card flex flex-col bg-neutral p-5 shadow-xl lg:flex-row lg:p-10"
+      >
+        <div class="flex flex-col justify-between lg:pr-4">
+          <figure>
+            <img
+              [src]="
+                country.coatOfArms.png ||
+                'https://static.vecteezy.com/system/resources/previews/018/887/528/original/earth-globe-icon-png.png'
+              "
+              alt="Coat of arms"
+              class="w-52 rounded-xl"
+            />
+          </figure>
+
+          <div class="flex justify-center py-4 text-center">
+            <h1 class="card-title text-4xl font-bold">
+              {{ country.name.common }} {{ country.flag }}
+            </h1>
+          </div>
+
+          <div class="items-center p-0 text-center">
+            <div class="stats stats-vertical w-full lg:w-72">
+              <div class="stat px-0">
+                <div class="stat-title">Population</div>
+                <div class="stat-value">{{ country.population | number }}</div>
+                <div class="stat-desc">
+                  {{ country.demonym }}
+                </div>
+              </div>
+
+              <div class="stat">
+                <div class="stat-title">Area</div>
+                <div class="stat-value">{{ country.area | number }}</div>
+                <div class="stat-desc">square kilometers</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider divider-vertical lg:divider-horizontal"></div>
+
+        <div class="flex flex-col lg:w-96">
+          <h2 class="text-xl font-bold">Country Details:</h2>
+          <p>
+            <strong class="font-semibold">Official Name: </strong>
+            {{ country.name.official }}
+          </p>
+          <span>
+            <strong class="font-semibold">Capital: </strong>
+            {{ country.capital }}
+          </span>
+          <span>
+            <strong class="font-semibold">
+              @if (country.hasMultipleCurrencies) {
+                Currencies:
+              } @else {
+                Currency:
+              }
+            </strong>
+            {{ country.currencies }}
+          </span>
+          <span>
+            <strong class="font-semibold">
+              @if (country.hasMultipleLanguages) {
+                Languages:
+              } @else {
+                Language:
+              }
+            </strong>
+            {{ country.languages }}
+          </span>
+
+          <div class="divider"></div>
+
+          <h2 class="text-xl font-bold">Geographical info:</h2>
+          <span>
+            <strong class="font-semibold">
+              @if (country.isInMultipleContinents) {
+                Continents:
+              } @else {
+                Continent:
+              }
+            </strong>
+            <span> {{ country.continents }} </span>
+          </span>
+          <span>
+            <strong class="font-semibold">Region: </strong> {{ country.region }}
+          </span>
+          <span>
+            <strong class="font-semibold">Sub-region: </strong>
+            {{ country.subregion }}
+          </span>
+
+          <div class="divider"></div>
+
+          <h2 class="text-xl font-bold">Borders:</h2>
+          <div class="mt-2 flex flex-row flex-wrap gap-3">
+            @if (country.borders !== null) {
+              @for (border of country.borders; track $index) {
+                <a
+                  class="cursor-pointer rounded-md bg-base-200 px-2 py-1 transition-all hover:bg-opacity-50"
+                  [routerLink]="['/country-details', border.cca3]"
+                >
+                  {{ border.name }} {{ border.flag }}
+                </a>
+              }
+            } @else {
+              {{ country.name.common }} has no border countries.
+            }
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+}

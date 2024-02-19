@@ -1,0 +1,25 @@
+<ul class="menu menu-horizontal px-1">
+  <li class="rounded-md bg-neutral">
+    <details>
+      <summary class="w-52 text-base">
+        @if (activeRegion !== null) {
+          {{ activeRegion }}
+        } @else {
+          Filter by Region
+        }
+      </summary>
+      <ul class="z-50 w-full rounded-lg bg-neutral">
+        <li>
+          <a routerLink="/" class="text-base">All Regions</a>
+        </li>
+        @for (region of regions; track $index) {
+          <li>
+            <a [routerLink]="['/by-region', region]" class="text-base">
+              {{ region }}
+            </a>
+          </li>
+        }
+      </ul>
+    </details>
+  </li>
+</ul>
